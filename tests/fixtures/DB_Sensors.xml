@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V18" />
+  <SW.Blocks.GlobalDB ID="0">
+    <AttributeList>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+  <Section Name="Static">
+    <Member Name="Temperature" Datatype="Real" Remanence="Retain" Accessibility="Public">
+      <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+      <Comment><MultiLanguageText Lang="en-US">Temperature hall 1</MultiLanguageText></Comment>
+    </Member>
+    <Member Name="Pressure" Datatype="LReal" />
+    <Member Name="Compteur_µ" Datatype="DInt" />
+    <Member Name="Status" Datatype="Word" />
+    <Member Name="Enable" Datatype="Bool" />
+    <Member Name="Text" Datatype="String[20]" />
+    <Member Name="WText" Datatype="WString" />
+    <Member Name="BigNumber" Datatype="ULInt" />
+    <Member Name="Motor" Datatype="Struct">
+      <Member Name="Speed" Datatype="Int" />
+      <Member Name="Current" Datatype="Real" />
+      <Member Name="Bearing" Datatype="Struct">
+        <Member Name="Vibration" Datatype="Real" />
+        <Member Name="Ok" Datatype="Bool" />
+      </Member>
+    </Member>
+    <Member Name="Values" Datatype="Array[0..3] of Int" />
+    <Member Name="Runtime" Datatype="Time" />
+    <Member Name="Timestamp" Datatype="DTL" />
+    <Member Name="Drive" Datatype="&quot;typeDrive&quot;">
+      <Sections>
+        <Section Name="None">
+          <Member Name="Setpoint" Datatype="Real" />
+        </Section>
+      </Sections>
+    </Member>
+    <Member Name="EmptyStruct" Datatype="Struct" />
+    <Member Name="NoType" />
+  </Section>
+</Sections></Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <Name>DB_Sensors</Name>
+      <Number>10</Number>
+      <ProgrammingLanguage>DB</ProgrammingLanguage>
+    </AttributeList>
+  </SW.Blocks.GlobalDB>
+</Document>

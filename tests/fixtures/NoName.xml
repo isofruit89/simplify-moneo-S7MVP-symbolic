@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document><SW.Blocks.GlobalDB ID="0"><AttributeList><Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5"><Section Name="Static"><Member Name="A" Datatype="Byte" /><Member Name="B" Datatype="USInt" /></Section></Sections></Interface></AttributeList></SW.Blocks.GlobalDB></Document>

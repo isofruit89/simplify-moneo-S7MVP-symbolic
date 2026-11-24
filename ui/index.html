@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TIA → moneo Converter</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 6h7v5H4zM13 13h7v5h-7zM11 8.5h4.5a2 2 0 0 1 2 2V13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <h1>TIA → moneo Converter</h1>
+      <p class="sub">Convert TIA Portal data block exports into moneo import files</p>
+    </div>
+  </div>
+  <div class="credit">Created by M. Wingert · ifm electronic · <span id="version">v3.0</span></div>
+</header>
+
+<main class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <span>Files</span>
+      <button class="btn btn-ghost btn-sm" id="btn-add" title="Add XML files">+ Add</button>
+    </div>
+    <ul class="filelist" id="filelist"></ul>
+    <div class="sidebar-foot" id="sidebar-foot" hidden>
+      <button class="btn btn-secondary btn-block" id="btn-save-all">Save all…</button>
+    </div>
+  </aside>
+
+  <section class="content">
+    <!-- Empty state -->
+    <div class="empty" id="empty">
+      <div class="dropzone" id="dropzone">
+        <svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><path d="M14 6h14l10 10v26H14z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M28 6v10h10M26 24v12M20 30l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h2>Drop XML file here</h2>
+        <p>or</p>
+        <button class="btn btn-primary" id="btn-pick">Select XML file…</button>
+        <p class="hint">Select the data block XML file from the <b>Version Control Interface</b> workspace. Multiple files are supported.</p>
+      </div>
+      <ol class="steps">
+        <li><span>1</span>Select XML from TIA Portal (VCI workspace)</li>
+        <li><span>2</span>Review signals in the preview</li>
+        <li><span>3</span>Save JSON and import into moneo</li>
+      </ol>
+    </div>
+
+    <!-- Detail view -->
+    <div class="detail" id="detail" hidden>
+      <div class="detail-head">
+        <div>
+          <div class="eyebrow">Data block</div>
+          <h2 id="d-db">–</h2>
+          <div class="path" id="d-path" title=""></div>
+        </div>
+        <button class="btn btn-primary" id="btn-save">Save as JSON…</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="stat-val" id="s-signals">0</div><div class="stat-lbl">signals for moneo</div></div>
+        <div class="stat"><div class="stat-val" id="s-skipped">0</div><div class="stat-lbl">skipped</div></div>
+        <div class="stat stat-types"><div class="stat-lbl">Data types</div><div class="chips" id="s-types"></div></div>
+      </div>
+
+      <div class="notice" id="skip-notice" hidden>
+        <b id="skip-notice-count"></b> variables are not transferred, e.g. arrays or unsupported data types.
+        <button class="link" id="skip-notice-link">Show</button>
+      </div>
+
+      <div class="tablebar">
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="signals" role="tab">Signals <span class="count" id="t-signals">0</span></button>
+          <button class="tab" data-tab="skipped" role="tab">Skipped <span class="count" id="t-skipped">0</span></button>
+        </div>
+        <input type="search" id="search" placeholder="Search…" autocomplete="off">
+      </div>
+
+      <div class="tablewrap">
+        <table id="table">
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="table-empty" id="table-empty" hidden>No entries.</div>
+      </div>
+    </div>
+
+    <!-- Error view -->
+    <div class="detail error-view" id="error-view" hidden>
+      <div class="error-box">
+        <h2>File could not be processed</h2>
+        <p class="path" id="e-path"></p>
+        <p id="e-msg"></p>
+        <p class="hint">Please check that this is the XML export of a data block from the Version Control Interface.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="drop-overlay" id="drop-overlay"><div>Drop XML files here</div></div>
+<div class="toasts" id="toasts"></div>
+
+<dialog id="confirm">
+  <form method="dialog">
+    <h3 id="confirm-title"></h3>
+    <p id="confirm-msg"></p>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" value="cancel">Cancel</button>
+      <button class="btn btn-primary" value="ok" id="confirm-ok">OK</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
